@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/iremsimsek/Desktop/Projects/Cmpe490Project/BackendDotnet/BackendDotnet.csproj": {}
+    "/Users/iremsimsek/Desktop/cmpe490/cmpe490_Project/BackendDotnet/BackendDotnet.csproj": {}
   },
   "projects": {
-    "/Users/iremsimsek/Desktop/Projects/Cmpe490Project/BackendDotnet/BackendDotnet.csproj": {
+    "/Users/iremsimsek/Desktop/cmpe490/cmpe490_Project/BackendDotnet/BackendDotnet.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/iremsimsek/Desktop/Projects/Cmpe490Project/BackendDotnet/BackendDotnet.csproj",
+        "projectUniqueName": "/Users/iremsimsek/Desktop/cmpe490/cmpe490_Project/BackendDotnet/BackendDotnet.csproj",
         "projectName": "BackendDotnet",
-        "projectPath": "/Users/iremsimsek/Desktop/Projects/Cmpe490Project/BackendDotnet/BackendDotnet.csproj",
+        "projectPath": "/Users/iremsimsek/Desktop/cmpe490/cmpe490_Project/BackendDotnet/BackendDotnet.csproj",
         "packagesPath": "/Users/iremsimsek/.nuget/packages/",
-        "outputPath": "/Users/iremsimsek/Desktop/Projects/Cmpe490Project/BackendDotnet/obj/",
+        "outputPath": "/Users/iremsimsek/Desktop/cmpe490/cmpe490_Project/BackendDotnet/obj/",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

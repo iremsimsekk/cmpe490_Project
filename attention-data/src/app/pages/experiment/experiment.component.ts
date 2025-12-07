@@ -104,20 +104,40 @@ startTask() {
 onReveal(event: MouseEvent) {
   if (!this.trial || this.videoEnded) return;
 
-  // Direct clickLayer reference
+  // Tıklamayı yakalayan katmanın referansını al
   const layer = this.clickLayer.nativeElement;
   const rect = layer.getBoundingClientRect();
 
+  // 1. Tıklama koordinatlarını clickLayer sınırlarına göre normalleştir (0.0 - 1.0)
   const xNorm = (event.clientX - rect.left) / rect.width;
   const yNorm = (event.clientY - rect.top) / rect.height;
 
-  // Eğer layer dışında tıklanmışsa (siyah barlar): ignore
-  if (xNorm < 0 || xNorm > 1 || yNorm < 0 || yNorm > 1) {
-    console.log("⬛ Letterbox (siyah alana) tıklama → YOK SAYILDI");
+  // ====================================================================
+  // YASAKLI BÖLGE TANIMI
+  const TOP_FORBIDDEN_Y_THRESHOLD = 0.05; // Üstteki %5'lik alan (0.000 - 0.049)
+
+  // 2. Yasaklı Bölge Kontrolü
+  if (yNorm < TOP_FORBIDDEN_Y_THRESHOLD) {
+    console.log(`❌ YASAK BÖLGE TIKLAMASI (y:${yNorm.toFixed(3)}) → YOK SAYILDI`);
+    return;
+  }
+  // ====================================================================
+
+  // Genel Güvenlik Filtresi (Yan ve Alt Siyah Barlar)
+  if (xNorm < 0 || xNorm > 1 || yNorm > 1) {
+    console.log("⬛ Letterbox (yan/alt siyah alana) tıklama → YOK SAYILDI");
     return;
   }
 
-  // click limit
+  // 3. Y Koordinatını YENİDEN NORMALLEŞTİRME (Gerçek Video Alanına göre)
+  // Yeni 0 noktası: yNorm = 0.05
+  // Yeni 1 noktası: yNorm = 1.0
+  const validYRange = 1.0 - TOP_FORBIDDEN_Y_THRESHOLD; // Geçerli Y aralığı: 0.95
+  
+  // Tıklamanın geçerli aralık içindeki konumunu hesapla ve 0-1 arasına sığdır
+  const yTrueNorm = (yNorm - TOP_FORBIDDEN_Y_THRESHOLD) / validYRange;
+  
+  // click limit kontrolü
   const limit = this.trial.condition === 'task' ? 5 : 8;
   if (this.trial.clicks.length >= limit) {
     this.showLimitWarning = true;
@@ -125,18 +145,19 @@ onReveal(event: MouseEvent) {
     return;
   }
 
+  // Tıklama geçerli, zamanı al
   const t = this.videoBlur.nativeElement.currentTime;
 
-
-
-  this.session.saveClick(xNorm, yNorm, t);
-  this.clickCount = this.trial.clicks.length;
+  // 4. Veri Kaydında ve Blur Efektinde YENİ NORMALLEŞTİRİLMİŞ (yTrueNorm) değeri kullan
+  this.session.saveClick(xNorm, yTrueNorm, t); // xNorm aynı kalır, yTrueNorm kullanılır
+  this.clickCount = this.trial.clicks.length; 
 
   // free mode blur effect
   if (this.trial.condition === 'free') {
     const sharp = this.videoSharp.nativeElement;
+    // Blur efektinde de yTrueNorm kullanılır.
     sharp.style.setProperty('--x', `${xNorm * 100}%`);
-    sharp.style.setProperty('--y', `${yNorm * 100}%`);
+    sharp.style.setProperty('--y', `${yTrueNorm * 100}%`); 
     sharp.style.setProperty('--r', `180px`);
     setTimeout(() => sharp.style.setProperty('--r', `0px`), 1000);
   }
