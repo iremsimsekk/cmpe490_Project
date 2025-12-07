@@ -1,0 +1,29 @@
+.container.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.card.intro-card {
+  text-align: center;
+  padding: 40px;
+  max-width: 600px;
+}
+
+.hint {
+  color: #ddd;
+  margin-bottom: 20px;
+}
+
+.sub-hint {
+  color: #bbb;
+  font-size: 14px;
+  margin-top: 10px;
+}
+
+.id-info {
+  margin-top: 20px;
+  color: #aaa;
+  font-size: 13px;
+}

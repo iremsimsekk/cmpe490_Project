@@ -1,0 +1,108 @@
+<div class="experiment-page">
+
+  <header class="exp-header">
+    <h2>Görsel Dikkat Deneyi</h2>
+    <div class="meta">
+      <span class="tag">Video: {{ progressLabel }}</span>
+      <span class="tag">Koşul: {{ trial?.condition }}</span>
+    </div>
+  </header>
+
+  <div class="click-counter" *ngIf="trial">
+  Tıklama: {{ clickCount }} / {{ trial.condition === 'task' ? 5 : 8 }}
+</div>
+
+  <!-- Görev popup -->
+<div class="task-popup" *ngIf="showTaskPopup">
+  <div class="task-box card">
+    <h3>Görev</h3>
+    <p *ngIf="trial?.instruction; else noInst">{{ trial?.instruction }}</p>
+
+    <ng-template #noInst>
+      <p style="opacity:.7">Bu video için görev bilgisi bulunamadı.</p>
+    </ng-template>
+
+    <button class="btn primary" (click)="startTask()">Hazırım</button>
+  </div>
+</div>
+
+
+  <!-- ⛔️ Hiç tıklama yok uyarısı -->
+<div class="task-popup" *ngIf="showNoClickPopup">
+  <div class="task-box card">
+    <h3>En az bir tıklama gerekli</h3>
+    <p>İlerlemeden önce bu video üzerinde en az bir kez tıklamalısınız.</p>
+    <button class="btn primary" (click)="showNoClickPopup = false">Tamam</button>
+  </div>
+</div>
+
+<div class="limit-warning" *ngIf="showLimitWarning">
+  ⚠️ Maksimum tıklama sayısına ulaşıldı
+</div>
+
+
+
+  <!-- Video alanı -->
+  <div class="video-container" #videoContainer>
+
+    
+    <!-- FREE koşulunda: iki video (blur + net) -->
+    <ng-container *ngIf="trial?.condition === 'free'; else taskMode">
+      <video
+        #videoBlur
+        class="video-blur blurred"
+        autoplay
+        muted
+        preload="auto"
+        (play)="syncPlay()"
+        (pause)="syncPause()"
+        (timeupdate)="syncTime()"
+        (ended)="onEnded()"
+      >
+        <source [src]="trial?.src" type="video/mp4" />
+      </video>
+
+      <video
+        #videoSharp
+        class="video-sharp"
+        autoplay
+        muted
+        preload="auto"
+        playsinline
+      >
+        <source [src]="trial?.src" type="video/mp4" />
+      </video>
+    </ng-container>
+
+    <!-- TASK koşulunda: tek video -->
+    <ng-template #taskMode>
+    <video
+  #videoBlur
+  class="video-sharp"
+  [muted]="true"
+  playsinline
+  preload="auto"
+  (ended)="onEnded()"
+>
+        <source [src]="trial?.src" type="video/mp4" />
+      </video>
+    </ng-template>
+
+    <!-- Şeffaf tıklama katmanı -->
+    <div class="click-layer" #clickLayer (click)="onReveal($event)"></div>
+    <button
+      *ngIf="videoEnded"
+      class="replay-btn"
+      (click)="replayTrial()"
+      [disabled]="(trial?.replayCount || 0) >= 1"
+    >
+      ↺ Tekrar İzle
+    </button>
+  </div>
+
+  <!-- Alt geçiş -->
+  <div class="footer-actions" *ngIf="videoEnded" style="margin-top:40px;">
+    <button class="btn primary" (click)="goNext()" [disabled]="!hasAnyClick">{{isLastTrial ? 'Bitir' : 'Sonraki video'}}</button>
+  </div>
+
+</div>

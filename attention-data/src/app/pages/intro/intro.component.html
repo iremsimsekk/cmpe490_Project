@@ -1,0 +1,24 @@
+<div class="container center">
+  <div class="card intro-card">
+    <h2>Görsel Dikkat Deneyi</h2>
+
+    <p class="hint" style="text-align: justify; max-width: 480px;">
+      Bu deneyde size kısa videolar izletilecektir. 
+      Bazı videolarda yalnızca izleme yapmanız (koşul: free), bazı videolarda ise belirli bir nesneyi takip etmeniz istenecektir (koşul: task).
+      <br><br>
+      Lütfen videolara dikkatle odaklanın ve ekranda gördüğünüz nesneleri tıklayarak işaretleyin.
+    </p>
+
+    <p class="sub-hint">
+      Deneye başlamak için aşağıdaki butona tıklayınız.
+    </p>
+
+    <button class="btn primary start-btn" (click)="startExperiment()">
+      Deneye Başla
+    </button>
+
+    <p class="id-info" *ngIf="participantId">
+      Katılımcı Kodu: <strong>{{ participantId }}</strong>
+    </p>
+  </div>
+</div>
