@@ -35,9 +35,9 @@
   "instruction":"Focus on how carefully the glue and lentils are applied on the roof area."},
 
   { "id": "c8_real",  "src": "assets/videos/c8_real.mp4",  "kind": "real", "theme": "Animals",
-"instruction":"Fili izleyin ve su içinde yürüyüşüyle birlikte bacak hareketlerine odaklanın." },
+"instruction":"Watch the elephant and focus on its leg movements as it walks through the water." },
   { "id": "c8_ai",    "src": "assets/videos/c8_ai.mp4",    "kind": "ai",   "theme": "Animals",
-"instruction":"Fili izleyin ve su içinde yürüyüşüyle birlikte bacak hareketlerine odaklanın." },
+"instruction":"Watch the elephant and focus on its leg movements as it walks through the water." },
 
   { "id": "c9_real",  "src": "assets/videos/c9_real.mp4",  "kind": "real", "theme": "People",
 "instruction":"Performans yapan kadının denge hareketini izleyin ve bacaklarının hareketine odaklanın." },

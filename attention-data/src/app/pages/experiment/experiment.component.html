@@ -1,28 +1,28 @@
 <div class="experiment-page">
 
   <header class="exp-header">
-    <h2>Görsel Dikkat Deneyi</h2>
+    <h2>Visual Attention Experiment</h2>
     <div class="meta">
       <span class="tag">Video: {{ progressLabel }}</span>
-      <span class="tag">Koşul: {{ trial?.condition }}</span>
+      <span class="tag">Condition: {{ trial?.condition }}</span>
     </div>
   </header>
 
   <div class="click-counter" *ngIf="trial">
-  Tıklama: {{ clickCount }} / {{ trial.condition === 'task' ? 5 : 8 }}
+  Click: {{ clickCount }} / {{ trial.condition === 'task' ? 5 : 8 }}
 </div>
 
   <!-- Görev popup -->
 <div class="task-popup" *ngIf="showTaskPopup">
   <div class="task-box card">
-    <h3>Görev</h3>
+    <h3>Task</h3>
     <p *ngIf="trial?.instruction; else noInst">{{ trial?.instruction }}</p>
 
     <ng-template #noInst>
       <p style="opacity:.7">Bu video için görev bilgisi bulunamadı.</p>
     </ng-template>
 
-    <button class="btn primary" (click)="startTask()">Hazırım</button>
+    <button class="btn primary" (click)="startTask()">start</button>
   </div>
 </div>
 

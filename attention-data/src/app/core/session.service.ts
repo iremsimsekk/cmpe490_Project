@@ -219,9 +219,8 @@ export class SessionService {
     };
 
     try {
-      const apiUrl ='https://cmpe490-project.onrender.com';
       const res = await lastValueFrom(
-        this.http.post(apiUrl, payload)
+        this.http.post('http://localhost:5000/api/upload', payload)
       );
       console.log('✅ Veri başarıyla gönderildi:', res);
     } catch (err) {
