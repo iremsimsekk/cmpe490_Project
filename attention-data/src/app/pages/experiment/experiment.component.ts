@@ -28,7 +28,7 @@ export class ExperimentComponent {
   clickLimit = 0;
   showLimitWarning = false;
 
-  constructor(private session: SessionService, private router: Router) {}
+  constructor(protected session: SessionService, private router: Router) {}
 
   get isLastTrial(): boolean {
   return this.session.isLast();
@@ -39,19 +39,21 @@ export class ExperimentComponent {
     return !!this.trial && this.trial.clicks && this.trial.clicks.length > 0;
   }
 
-  /** Deney başlatıldığında */
   ngOnInit() {
-    this.trial = this.session.current();
-
-    // 🎯 Free koşulunda blur açık, task'ta kapalı
-    this.isBlurred = this.trial?.condition === 'free';
-    console.log(`Koşul: ${this.trial?.condition} → Blur: ${this.isBlurred}`);
-
-    // Task koşulundaysa görev popup'ı aç
-    if (this.trial?.condition === 'task') {
-      this.showTaskPopup = true;
-    }
+  // ❗ Participant ID yoksa deney BAŞLAMASIN
+  if (!this.session.participantId) {
+    this.trial = null;
+    return;
   }
+
+  this.trial = this.session.current();
+  this.isBlurred = this.trial?.condition === 'free';
+
+  if (this.trial?.condition === 'task') {
+    this.showTaskPopup = true;
+  }
+}
+
 
   ngAfterViewInit() {
  const blur = this.videoBlur?.nativeElement;
@@ -229,9 +231,11 @@ syncTime() {
 
     if (this.session.isLast()) {
       this.session.uploadToServer();
-      this.router.navigateByUrl('/debrief');
+
+      // ❗ Artık route etmiyoruz
+      this.trial = null;
       return;
-    }
+  }
 
     this.session.next();
     this.trial = this.session.current();

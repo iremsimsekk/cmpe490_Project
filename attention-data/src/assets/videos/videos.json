@@ -1,49 +1,181 @@
 [
-  { "id": "c1_real",  "src": "assets/videos/c1_real.mp4",  "kind": "real","theme": "Vehicles",
-    "instruction": "Kırmızı aracı dikkatle izleyin ve zıpladığı an ile inişini takip edin."},
-  { "id": "c1_ai",    "src": "assets/videos/c1_ai.mp4",    "kind": "ai",  "theme": "Vehicles",
-    "instruction": "Kırmızı aracı dikkatle izleyin ve zıpladığı an ile inişini takip edin." },
+  {
+    "id": "c1_real",
+    "src": "assets/videos/c1_real.mp4",
+    "kind": "real",
+    "theme": "Vehicles",
+    "instruction": "Focus on the red vehicle and carefully track the moment it jumps and lands."
+  },
+  {
+    "id": "c1_ai",
+    "src": "assets/videos/c1_ai.mp4",
+    "kind": "ai",
+    "theme": "Vehicles",
+    "instruction": "Focus on the red vehicle and carefully track the moment it jumps and lands."
+  },
 
-  { "id": "c2_real",  "src": "assets/videos/c2_real.mp4",  "kind": "real", "theme": "Nature" ,
-"instruction":"Şişenin kesilen kısmını ve elin hareketini takip edin." },
-  { "id": "c2_ai",    "src": "assets/videos/c2_ai.mp4",    "kind": "ai",   "theme": "Nature", 
-"instruction":"Şişenin kesilen kısmını ve elin hareketini takip edin."},
+  {
+    "id": "c2_real",
+    "src": "assets/videos/c2_real.mp4",
+    "kind": "real",
+    "theme": "People",
+    "instruction": "Focus on the cut section of the bottle and follow the hand movements during the action."
+  },
+  {
+    "id": "c2_ai",
+    "src": "assets/videos/c2_ai.mp4",
+    "kind": "ai",
+    "theme": "People",
+    "instruction": "Focus on the cut section of the bottle and follow the hand movements during the action."
+  },
 
-  { "id": "c3_real",  "src": "assets/videos/c3_real.mp4",  "kind": "real", "theme": "People",
-"instruction":"Çiçeğin üzerindeki arıyı ve kelebeği dikkatle takip et."},
-  { "id": "c3_ai",    "src": "assets/videos/c3_ai.mp4",    "kind": "ai",   "theme": "People",
-"instruction":"Çiçeğin üzerindeki arıyı ve kelebeği dikkatle takip et." },
+  {
+    "id": "c3_real",
+    "src": "assets/videos/c3_real.mp4",
+    "kind": "real",
+    "theme": "Nature",
+    "instruction": "Carefully track the bee and the butterfly on the flower."
+  },
+  {
+    "id": "c3_ai",
+    "src": "assets/videos/c3_ai.mp4",
+    "kind": "ai",
+    "theme": "Nature",
+    "instruction": "Carefully track the bee and the butterfly on the flower."
+  },
 
-  { "id": "c4_real",  "src": "assets/videos/c4_real.mp4",  "kind": "real", "theme": "Animals" ,
-  "instruction":"Pandayı dikkatle izleyin, nereye hareket ettiğine odaklanın."},
-  { "id": "c4_ai",    "src": "assets/videos/c4_ai.mp4",    "kind": "ai",   "theme": "Animals",
-"instruction":"Pandayı dikkatle izleyin, nereye hareket ettiğine odaklanın." },
+  {
+    "id": "c4_real",
+    "src": "assets/videos/c4_real.mp4",
+    "kind": "real",
+    "theme": "Animals",
+    "instruction": "Watch the panda carefully and focus on the direction of its movements."
+  },
+  {
+    "id": "c4_ai",
+    "src": "assets/videos/c4_ai.mp4",
+    "kind": "ai",
+    "theme": "Animals",
+    "instruction": "Watch the panda carefully and focus on the direction of its movements."
+  },
 
-  { "id": "c5_real",  "src": "assets/videos/c5_real.mp4",  "kind": "real", "theme": "Nature",
-"instruction":"Suyun kayalara vurduğu noktaya odaklanın." },
-  { "id": "c5_ai",    "src": "assets/videos/c5_ai.mp4",    "kind": "ai",   "theme": "Nature",
-"instruction":"Suyun kayalara vurduğu noktaya odaklanın." },
+  {
+    "id": "c5_real",
+    "src": "assets/videos/c5_real.mp4",
+    "kind": "real",
+    "theme": "Nature",
+    "instruction": "Focus on the point where the water hits the rocks."
+  },
+  {
+    "id": "c5_ai",
+    "src": "assets/videos/c5_ai.mp4",
+    "kind": "ai",
+    "theme": "Nature",
+    "instruction": "Focus on the point where the water hits the rocks."
+  },
 
-  { "id": "c6_real",  "src": "assets/videos/c6_real.mp4",  "kind": "real", "theme": "People" ,
-  "instruction":"Koşan çocuğun hareketini ve yönünü takip edin."},
-  { "id": "c6_ai",    "src": "assets/videos/c6_ai.mp4",    "kind": "ai",   "theme": "People" ,
-  "instruction":"Koşan çocuğun hareketini ve yönünü takip edin."},
+  {
+    "id": "c6_real",
+    "src": "assets/videos/c6_real.mp4",
+    "kind": "real",
+    "theme": "People",
+    "instruction": "Track the running child and focus on their movement direction."
+  },
+  {
+    "id": "c6_ai",
+    "src": "assets/videos/c6_ai.mp4",
+    "kind": "ai",
+    "theme": "People",
+    "instruction": "Track the running child and focus on their movement direction."
+  },
 
-  { "id": "c7_real",  "src": "assets/videos/c7_real.mp4",  "kind": "real", "theme": "People",
-"instruction":"Focus on how carefully the glue and lentils are applied on the roof area." },
-  { "id": "c7_ai",    "src": "assets/videos/c7_ai.mp4",    "kind": "ai",   "theme": "People" , 
-  "instruction":"Focus on how carefully the glue and lentils are applied on the roof area."},
+  {
+    "id": "c7_real",
+    "src": "assets/videos/c7_real.mp4",
+    "kind": "real",
+    "theme": "Animals",
+    "instruction": "Focus on the running cheetah and carefully track its body and leg movements as it moves forward."
+  },
+  {
+    "id": "c7_ai",
+    "src": "assets/videos/c7_ai.mp4",
+    "kind": "ai",
+    "theme": "Animals",
+    "instruction": "Focus on the running cheetah and carefully track its body and leg movements as it moves forward."
+  },
 
-  { "id": "c8_real",  "src": "assets/videos/c8_real.mp4",  "kind": "real", "theme": "Animals",
-"instruction":"Watch the elephant and focus on its leg movements as it walks through the water." },
-  { "id": "c8_ai",    "src": "assets/videos/c8_ai.mp4",    "kind": "ai",   "theme": "Animals",
-"instruction":"Watch the elephant and focus on its leg movements as it walks through the water." },
+  {
+    "id": "c8_real",
+    "src": "assets/videos/c8_real.mp4",
+    "kind": "real",
+    "theme": "Animals",
+    "instruction": "Watch the elephant and focus on its leg movements as it walks through the water."
+  },
+  {
+    "id": "c8_ai",
+    "src": "assets/videos/c8_ai.mp4",
+    "kind": "ai",
+    "theme": "Animals",
+    "instruction": "Watch the elephant and focus on its leg movements as it walks through the water."
+  },
 
-  { "id": "c9_real",  "src": "assets/videos/c9_real.mp4",  "kind": "real", "theme": "People",
-"instruction":"Performans yapan kadının denge hareketini izleyin ve bacaklarının hareketine odaklanın." },
-  { "id": "c9_ai",    "src": "assets/videos/c9_ai.mp4",    "kind": "ai",   "theme": "People" ,
-"instruction":"Performans yapan kadının denge hareketini izleyin ve bacaklarının hareketine odaklanın."},
+  {
+    "id": "c9_real",
+    "src": "assets/videos/c9_real.mp4",
+    "kind": "real",
+    "theme": "People",
+    "instruction": "Focus on the man handling the beehive and carefully track his hand movements as he lifts and carries it."
+  },
+  {
+    "id": "c9_ai",
+    "src": "assets/videos/c9_ai.mp4",
+    "kind": "ai",
+    "theme": "People",
+    "instruction": "Focus on the man handling the beehive and carefully track his hand movements as he lifts and carries it."
+  },
 
-  { "id": "c10_real", "src": "assets/videos/c10_real.mp4", "kind": "real", "theme": "People" },
-  { "id": "c10_ai",   "src": "assets/videos/c10_ai.mp4",   "kind": "ai",   "theme": "People" }
+  {
+    "id": "c10_real",
+    "src": "assets/videos/c10_real.mp4",
+    "kind": "real",
+    "theme": "People",
+    "instruction": "Focus on how the glue is spread on the surface and observe the pouring of the orange lentils."
+  },
+  {
+    "id": "c10_ai",
+    "src": "assets/videos/c10_ai.mp4",
+    "kind": "ai",
+    "theme": "People",
+    "instruction": "Focus on how the glue is spread on the surface and observe the pouring of the orange lentils."
+  },
+
+  {
+    "id": "c11_real",
+    "src": "assets/videos/c11_real.mp4",
+    "kind": "real",
+    "theme": "People",
+    "instruction": "Watch the fishing activity and focus on the movements of the fishing rod and the fish."
+  },
+  {
+    "id": "c11_ai",
+    "src": "assets/videos/c11_ai.mp4",
+    "kind": "ai",
+    "theme": "People",
+    "instruction": "Watch the fishing activity and focus on the movements of the fishing rod and the fish."
+  },
+
+  {
+    "id": "c12_real",
+    "src": "assets/videos/c12_real.mp4",
+    "kind": "real",
+    "theme": "Animals",
+    "instruction": "Focus on the rabbit and carefully track its body and head movements."
+  },
+  {
+    "id": "c12_ai",
+    "src": "assets/videos/c12_ai.mp4",
+    "kind": "ai",
+    "theme": "Animals",
+    "instruction": "Focus on the rabbit and carefully track its body and head movements."
+  }
 ]

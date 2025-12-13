@@ -210,21 +210,71 @@ export class SessionService {
     return Math.abs(h);
   }
 
-  // ===== BACKEND UPLOAD =====
-  async uploadToServer() {
-    const key = this.storageKey();
-    const payload = {
-      participantId: this.participantId,
-      trials: JSON.parse(localStorage.getItem(key) || '[]')
-    };
+// ===== FORM ENDPOINT UPLOAD (Formspree) =====
+async uploadToServer() {
+  const key = this.storageKey();
 
-    try {
-      const res = await lastValueFrom(
-        this.http.post('http://localhost:5000/api/upload', payload)
-      );
-      console.log('✅ Veri başarıyla gönderildi:', res);
-    } catch (err) {
-      console.error('❌ Veri gönderimi başarısız:', err);
-    }
+  const payload = {
+    participantId: this.participantId,
+    createdAt: new Date().toISOString(),
+    userAgent: navigator.userAgent,
+    screen: {
+      width: window.innerWidth,
+      height: window.innerHeight
+    },
+    trials: JSON.parse(localStorage.getItem(key) || '[]')
+  };
+
+  try {
+    const res = await lastValueFrom(
+      this.http.post(
+        'https://formspree.io/f/mpwvkwdo', // 🔴 BURAYA kendi Formspree endpoint'ini yaz
+        payload,
+        {
+          headers: {
+            'Accept': 'application/json'
+          }
+        }
+      )
+    );
+
+    console.log('✅ Veri başarıyla Formspree’ye gönderildi:', res);
+  } catch (err) {
+    console.error('❌ Formspree veri gönderimi başarısız:', err);
   }
+
+  // Fail-safe: local JSON download
+  const blob = new Blob([JSON.stringify(payload, null, 2)], {
+    type: 'application/json'
+  });
+  const url = window.URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `backup_P${this.participantId}_${Date.now()}.json`;
+  a.click();
+  window.URL.revokeObjectURL(url);
+
+  // 🔄 Yeni participant için reset
+  this.resetForNextParticipant();
+}
+
+// ===== NEXT PARTICIPANT RESET =====
+resetForNextParticipant() {
+  const key = this.storageKey();
+
+  // 🔹 Sadece bu participant'in verisini sil
+  localStorage.removeItem(key);
+
+  // 🔹 State sıfırla
+  this.trials = [];
+  this.currentIndex = 0;
+  this.condition = 'free';
+
+  // 🔹 Participant ID'yi temizle (yeni ID girilecek)
+  this.participantId = '';
+
+  console.log('🔄 Next participant için state resetlendi');
+}
+
+
 }
