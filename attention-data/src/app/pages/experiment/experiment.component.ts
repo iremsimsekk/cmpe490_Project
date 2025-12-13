@@ -39,20 +39,26 @@ export class ExperimentComponent {
     return !!this.trial && this.trial.clicks && this.trial.clicks.length > 0;
   }
 
-  ngOnInit() {
-  // ❗ Participant ID yoksa deney BAŞLAMASIN
-  if (!this.session.participantId) {
-    this.trial = null;
-    return;
-  }
+ngOnInit() {
+  // 1) otomatik participant id al
+  const pid = this.session.getOrCreateParticipantId();
 
+  // 2) otomatik deneyi başlat
+  this.session.initBalanced(pid, {
+    contentCount: 12,
+    orderCounterbalance: true
+  });
+
+  // 3) ilk trial'i çek
   this.trial = this.session.current();
-  this.isBlurred = this.trial?.condition === 'free';
 
+  // 4) UI ayarları
+  this.isBlurred = this.trial?.condition === 'free';
   if (this.trial?.condition === 'task') {
     this.showTaskPopup = true;
   }
 }
+
 
 
   ngAfterViewInit() {
@@ -71,6 +77,7 @@ export class ExperimentComponent {
 
   // aşağısı senin mevcut kodun:
   const video = this.videoBlur.nativeElement;
+  if (!video) return;
 
   if (!video) return;
 
@@ -165,33 +172,36 @@ onReveal(event: MouseEvent) {
   }
 }
 
-
-
-
   /** Tekrar izleme */
-  replayTrial() {
-    console.log("REPLAY FUNCTION CALLED!!");
-    const blur = this.videoBlur.nativeElement;
+replayTrial() {
+  console.log("REPLAY FUNCTION CALLED!!");
 
-    if (this.trial?.replayCount && this.trial.replayCount >= 1) {
-      console.log('Replay limit reached');
-      return;
-    }
+  const blur = this.videoBlur?.nativeElement;
+  const sharp = this.videoSharp?.nativeElement;
 
-    if (this.trial) {
-      this.trial.clicks = [];
-      this.trial.replayCount = (this.trial.replayCount || 0) + 1;
-    }
+  if (!blur) return;
 
-    blur.currentTime = 0;
-    this.videoSharp.nativeElement.currentTime = 0;
-    this.isBlurred = this.trial?.condition === 'free';
-    this.videoEnded = false;
-    this.clickMarkers = [];
-
-    blur.play();
-    console.log(`Trial replayed (${this.trial?.id}), clicks reset`);
+  if (this.trial?.replayCount && this.trial.replayCount >= 1) {
+    console.log('Replay limit reached');
+    return;
   }
+
+  if (this.trial) {
+    this.trial.clicks = [];
+    this.trial.replayCount = (this.trial.replayCount || 0) + 1;
+  }
+
+  blur.currentTime = 0;
+  if (sharp) sharp.currentTime = 0;
+
+  this.isBlurred = this.trial?.condition === 'free';
+  this.videoEnded = false;
+  this.clickMarkers = [];
+
+  blur.play();
+  console.log(`Trial replayed (${this.trial?.id}), clicks reset`);
+}
+
 
   /** Senkronizasyon fonksiyonları */
 syncPlay() {
@@ -225,17 +235,15 @@ syncTime() {
   }
 
   /** Sonraki videoya geçiş */
-  goNext() {
+  async goNext() {
     this.videoEnded = false;
     this.clickCount = 0; 
 
     if (this.session.isLast()) {
-      this.session.uploadToServer();
-
-      // ❗ Artık route etmiyoruz
-      this.trial = null;
-      return;
-  }
+  await this.session.uploadToServer();
+  this.router.navigateByUrl('/debrief');
+  return;
+}
 
     this.session.next();
     this.trial = this.session.current();

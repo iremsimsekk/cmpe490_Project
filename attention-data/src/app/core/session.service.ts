@@ -31,10 +31,33 @@ export class SessionService {
   participantId: string | number = 'P001';
 
   // JSON’dan gelen tüm videolar
- allVideos: any[] = (window as any).videosJson || [];
+allVideos: any[] = (window as any).videosJson || [];
 
+// ===== POST-QUESTION =====
+suspectedAIVideos: string[] = [];
 
   constructor(private http: HttpClient) {}
+
+  setSuspectedAI(ids: string[]) {
+  this.suspectedAIVideos = ids;
+}
+
+  // ===== PARTICIPANT ID (auto) =====
+getOrCreateParticipantId(): string {
+  const key = 'cmpe490_participant_id';
+  let pid = localStorage.getItem(key);
+
+  if (!pid) {
+    pid = 'P' + Math.floor(100000 + Math.random() * 900000); // P123456
+    localStorage.setItem(key, pid);
+    console.log('🆕 New participant ID generated:', pid);
+  } else {
+    console.log('♻️ Existing participant ID:', pid);
+  }
+
+  return pid;
+}
+
 
   // ===== STORAGE KEY =====
   private storageKey(): string {
@@ -222,7 +245,9 @@ async uploadToServer() {
       width: window.innerWidth,
       height: window.innerHeight
     },
-    trials: JSON.parse(localStorage.getItem(key) || '[]')
+    trials: JSON.parse(localStorage.getItem(key) || '[]'),
+
+    suspectedAIVideos: this.suspectedAIVideos
   };
 
   try {
@@ -254,27 +279,5 @@ async uploadToServer() {
   a.click();
   window.URL.revokeObjectURL(url);
 
-  // 🔄 Yeni participant için reset
-  this.resetForNextParticipant();
 }
-
-// ===== NEXT PARTICIPANT RESET =====
-resetForNextParticipant() {
-  const key = this.storageKey();
-
-  // 🔹 Sadece bu participant'in verisini sil
-  localStorage.removeItem(key);
-
-  // 🔹 State sıfırla
-  this.trials = [];
-  this.currentIndex = 0;
-  this.condition = 'free';
-
-  // 🔹 Participant ID'yi temizle (yeni ID girilecek)
-  this.participantId = '';
-
-  console.log('🔄 Next participant için state resetlendi');
-}
-
-
 }

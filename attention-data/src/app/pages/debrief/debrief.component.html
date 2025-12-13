@@ -1,9 +1,43 @@
 <div class="container center">
-    <div class="card">
-        <h2>Thank You</h2>
-        <p class="hint">Experiment is done succefully. Thank you for your participate.</p>
+  <div class="card">
 
-        <div class="spacer"></div>
-        <button class="btn" routerLink="/">Turn Home Page</button>
+    <h2>Thank You</h2>
+
+    <p class="hint">
+      The experiment has been completed successfully.  
+      Before finishing, please answer the following optional question.
+    </p>
+
+    <div class="spacer"></div>
+
+    <!-- ===== FINAL QUESTION ===== -->
+    <h3>Final Question</h3>
+    <p>
+      Which of the videos you watched did you think were AI-generated?
+      Please select all that apply.
+    </p>
+
+    <!-- ===== VIDEO THUMBNAIL GRID ===== -->
+    <div class="video-grid">
+      <div
+        class="video-card"
+        *ngFor="let t of session.trials"
+        (click)="toggleAI(t.id)"
+        [class.selected]="selectedAI.has(t.id)"
+      >
+        <img
+          [src]="'assets/thumbnails/' + t.id + '.png'"
+          [alt]="t.id"
+        />
+        <span class="video-label">{{ t.id }}</span>
+      </div>
     </div>
+
+    <div class="spacer"></div>
+
+    <button class="btn primary" (click)="finish()">
+      Submit & Finish
+    </button>
+
+  </div>
 </div>
